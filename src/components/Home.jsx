@@ -1,10 +1,12 @@
 import React from 'react';
+import CategoryList from './CategoryList';
 
 // function App() {
 class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div className="main">
+        <CategoryList />
         <header className="App-header">
           <input />
           <ul>
