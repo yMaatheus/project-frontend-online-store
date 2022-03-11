@@ -25,7 +25,7 @@ if (typeof module !== 'undefined') {
 }
  */
 
-export async function getProductsFromCategoryAndQuery(categoryId, query) {
+export async function getProductsFromCategoryAndQuery(categoryId, query = 'todos') {
   const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`);
   const catAndQueryData = await response.json();
   console.log(catAndQueryData);
