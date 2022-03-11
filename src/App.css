@@ -2,10 +2,12 @@
   text-align: center;
 }
 
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
 
 @media ( prefers-reduced-motion : no-preference ) {
 
@@ -14,11 +16,12 @@
   }
 
 }
+*/
 
 .App-header {
   align-items: center;
-  background-color: #282c34;
-  color: white;
+  background-color: white;
+  color: #282c34;
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
@@ -26,6 +29,7 @@
   min-height: 100vh;
 }
 
+/*
 .App-link {
   color: #61dafb;
 }
@@ -40,3 +44,4 @@
     transform: rotate(360deg);
   }
 }
+*/

@@ -1,24 +1,26 @@
+// import { render } from '@testing-library/react';
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './home';
+import * as api from './services/api';
+// import InitialPage from '/src/initialpage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+api.getCategories().then((categories) => { console.log(categories); });
+console.log(api.getCategories());
+
+// function App() {
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <Route exact path="/" component={ Home } />
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
