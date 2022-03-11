@@ -47,12 +47,12 @@
 */
 
 .categories {
-  list-style: none;
+  border: solid black 1px;
+  border-radius: 10px;
   display: flex;
   flex-flow: column nowrap;
-  border: solid black 1px;
-  padding: 0 10px;  
-  border-radius: 10px;
+  list-style: none;
+  padding: 0 10px;
 }
 
 .main {
@@ -60,11 +60,10 @@
 }
 
 .category {
-  height: min-content;
-  /* border-bottom: solid black 1px; */
-  padding: 10px;  
+  border-radius: 10px;
   display: flex;
-  border-radius: 10px;    
+  height: min-content;
+  padding: 10px;
 }
 
 .category:hover {
