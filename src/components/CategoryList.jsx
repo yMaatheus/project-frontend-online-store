@@ -26,7 +26,6 @@ export default class CategoryList extends React.Component {
             <div key={ Math.random() }>
               <li
                 data-testid="category"
-                key={ category.id }
                 name={ category.id }
                 className="category"
               >
