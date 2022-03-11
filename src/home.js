@@ -6,10 +6,12 @@ class Home extends React.Component {
     return (
       <div>
         <header className="App-header">
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria
-          </p>
           <input />
+          <ul>
+            <span data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </span>
+          </ul>
         </header>
       </div>
     );
