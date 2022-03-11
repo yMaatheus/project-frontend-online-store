@@ -2,8 +2,9 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
+import Cart from './components/Cart';
 import * as api from './services/api';
 // import InitialPage from '/src/initialpage';
 
@@ -16,7 +17,10 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path="/" component={ Home } />
+          <Switch>
+            <Route exact path="/" component={ Home } />
+            <Route path="/cart" component={ Cart } />
+          </Switch>
         </div>
       </BrowserRouter>
     );
