@@ -10,6 +10,7 @@ class Home extends React.Component {
       inputValue: '',
       products: [],
       cards: '',
+      categorySelected: '',
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -23,11 +24,18 @@ class Home extends React.Component {
     });
   }
 
-  async onClick() {
+  async onClick(event) {
+    event.preventDefault();
+    const { target: { value } } = event;
+    console.log(value);
+    let category = value;
+    if (category === '') {
+      category = '$CATEGORY_ID';
+    }
     const { inputValue } = this.state;
-    const test = '$CATEGORY_ID'; // const test exite para testes por não haver categorias ainda.
-    const { results } = await api.getProductsFromCategoryAndQuery(test, inputValue);
-    this.setState({ products: results });
+    // const test = '$CATEGORY_ID'; // const test exite para testes por não haver categorias ainda.
+    const { results } = await api.getProductsFromCategoryAndQuery(category, inputValue);
+    this.setState({ products: results, categorySelected: category });
     this.displayProducts();
   }
 
@@ -51,10 +59,13 @@ class Home extends React.Component {
   }
 
   render() {
-    const { inputValue, cards } = this.state;
+    const { inputValue, cards, categorySelected } = this.state;
     return (
       <div className="main">
-        <CategoryList />
+        <CategoryList
+          onClick={ this.onClick }
+          categorySelected={ categorySelected }
+        />
         <header className="App-header">
           <input
             type="text"
