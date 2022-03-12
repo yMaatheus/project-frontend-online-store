@@ -62,7 +62,7 @@ class Home extends React.Component {
             value={ inputValue }
             onChange={ this.onInputChange }
           />
-              <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+          <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
           <button
             type="button"
             data-testid="query-button"
