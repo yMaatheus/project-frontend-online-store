@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import CategoryList from './CategoryList';
 import * as api from '../services/api';
 
-// function App() {
 class Home extends React.Component {
   constructor() {
     super();
@@ -52,7 +53,8 @@ class Home extends React.Component {
   render() {
     const { inputValue, cards } = this.state;
     return (
-      <div>
+      <div className="main">
+        <CategoryList />
         <header className="App-header">
           <input
             type="text"
@@ -60,6 +62,7 @@ class Home extends React.Component {
             value={ inputValue }
             onChange={ this.onInputChange }
           />
+              <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
           <button
             type="button"
             data-testid="query-button"

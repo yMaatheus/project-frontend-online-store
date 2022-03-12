@@ -45,3 +45,34 @@
   }
 }
 */
+
+.categories {
+  border: solid black 1px;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  list-style: none;
+  padding: 0 10px;
+}
+
+.main {
+  display: flex;
+}
+
+.category {
+  border-radius: 10px;
+  display: flex;
+  height: min-content;
+  padding: 10px;
+}
+
+.category:hover {
+  background-color: rgba(121, 159, 241, 0.3);
+  color: white;
+  cursor: pointer;
+}
+
+hr {
+  margin: 0;
+  padding: 0;
+}
