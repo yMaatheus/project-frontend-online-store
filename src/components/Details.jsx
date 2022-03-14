@@ -1,0 +1,115 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import * as api from '../services/api';
+
+class Details extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      productName: '',
+      productPrice: 0,
+      productThumbnail: '',
+      attributes: [],
+      valueEmail: '',
+      valueEvaluation: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  async componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    const product = await api.getProductByProductId(id);
+    const DEZ = 10;
+    const array = product.attributes.filter(
+      (_attribute, index) => (index >= 0 && index < DEZ),
+    );
+    this.setState({
+      productName: product.title,
+      productPrice: product.price,
+      productThumbnail: product.thumbnail,
+      attributes: array,
+    });
+    if (localStorage.length > 0) {
+      this.setState({
+        valueEmail: localStorage.getItem('valueEmail'),
+        valueEvaluation: localStorage.getItem('valueEvaluation'),
+      });
+    }
+  }
+
+  handleChange({ target }) {
+    const { value, name } = target;
+    localStorage.setItem(name, value);
+    this.setState({ [name]: value });
+  }
+
+  render() {
+    const {
+      productName,
+      productPrice,
+      productThumbnail,
+      attributes,
+      valueEmail,
+      valueEvaluation,
+    } = this.state;
+    return (
+      <section>
+        <h1 data-testid="product-detail-name">
+          {`${productName} - R$ ${productPrice.toFixed(2)}`}
+        </h1>
+        <section>
+          <img src={ productThumbnail } alt={ productName } />
+        </section>
+        <section>
+          <h4>Especificações Técnicas</h4>
+          <section>
+            <ul>
+              {attributes.map(({ name, value_name: value }) => (
+                <li key={ name }>{`${name}: ${value}`}</li>
+              ))}
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h1>Avaliações</h1>
+          <form>
+            <fieldset>
+              <input
+                type="text"
+                name="valueEmail"
+                data-testid="product-detail-email"
+                onChange={ this.handleChange }
+                value={ valueEmail }
+              />
+              <span>{valueEmail}</span>
+              <textarea
+                data-testid="product-detail-evaluation"
+                name="valueEvaluation"
+                id=""
+                cols="5"
+                rows="5"
+                placeholder="Mensagem (Opcional)"
+                onChange={ this.handleChange }
+                value={ valueEvaluation }
+              />
+              <button type="button" data-testid="submit-review-btn">Avaliar</button>
+            </fieldset>
+            <label htmlFor="rating">
+              <input type="radio" name="star1" id="rating" data-testid="1-rating" />
+              <input type="radio" name="star2" id="rating" data-testid="2-rating" />
+              <input type="radio" name="star3" id="rating" data-testid="3-rating" />
+              <input type="radio" name="star4" id="rating" data-testid="4-rating" />
+              <input type="radio" name="star5" id="rating" data-testid="5-rating" />
+            </label>
+          </form>
+        </section>
+      </section>
+    );
+  }
+}
+
+Details.propTypes = {
+  match: PropTypes.object,
+}.isRequired;
+
+export default Details;

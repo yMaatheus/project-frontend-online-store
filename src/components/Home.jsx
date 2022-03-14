@@ -33,7 +33,6 @@ class Home extends React.Component {
       category = '$CATEGORY_ID';
     }
     const { inputValue } = this.state;
-    // const test = '$CATEGORY_ID'; // const test exite para testes por não haver categorias ainda.
     const { results } = await api.getProductsFromCategoryAndQuery(category, inputValue);
     this.setState({ products: results, categorySelected: category });
     this.displayProducts();
@@ -44,10 +43,18 @@ class Home extends React.Component {
     if (products.length > 0) {
       this.setState({ cards:
       products.map((product) => (
-        <div key={ product.id } data-testid="product">
-          <h3>{ product.title }</h3>
-          <img src={ product.thumbnail } alt={ product.title } />
-          <p>{ product.price }</p>
+        <div
+          key={ product.id }
+          data-testid="product"
+        >
+          <Link
+            to={ `/details/${product.id}` }
+            data-testid="product-detail-link"
+          >
+            <h3>{ product.title }</h3>
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p>{ product.price }</p>
+          </Link>
         </div>
       )),
       });
