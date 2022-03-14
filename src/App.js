@@ -7,7 +7,6 @@ import Details from './components/Details';
 import * as api from './services/api';
 
 api.getCategories().then((categories) => { console.log(categories); });
-console.log(api.getCategories());
 
 class App extends React.Component {
   render() {

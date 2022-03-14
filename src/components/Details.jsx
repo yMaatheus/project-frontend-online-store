@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 
 class Details extends React.Component {
@@ -12,6 +13,7 @@ class Details extends React.Component {
       attributes: [],
       valueEmail: '',
       valueEvaluation: '',
+      quantity: 1,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -43,6 +45,29 @@ class Details extends React.Component {
     this.setState({ [name]: value });
   }
 
+  addToCart = () => {
+    const { quantity, productName } = this.state;
+    if (localStorage.length > 0) {
+      const previousCart = JSON.parse(localStorage.getItem('cart'));
+      localStorage.setItem(
+        'cart', JSON.stringify(
+          [...previousCart, { name: productName, quantity }],
+        ),
+      );
+      return;
+    }
+    localStorage.setItem('cart', JSON.stringify([{ name: productName, quantity }]));
+  }
+
+  handleQuantity = ({ target }) => {
+    const { quantity } = this.state;
+    if (target.innerText === '-') {
+      this.setState({ quantity: quantity > 1 ? quantity - 1 : 0 });
+      return;
+    }
+    this.setState({ quantity: quantity + 1 });
+  }
+
   render() {
     const {
       productName,
@@ -51,9 +76,12 @@ class Details extends React.Component {
       attributes,
       valueEmail,
       valueEvaluation,
+      quantity,
     } = this.state;
+
     return (
       <section>
+        <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <h1 data-testid="product-detail-name">
           {`${productName} - R$ ${productPrice.toFixed(2)}`}
         </h1>
@@ -71,6 +99,10 @@ class Details extends React.Component {
           </section>
         </section>
         <section>
+          <span>Quantidade: </span>
+          <button type="button" onClick={ this.handleQuantity }>-</button>
+          <span>{quantity}</span>
+          <button type="button" onClick={ this.handleQuantity }>+</button>
           <h1>Avaliações</h1>
           <form>
             <fieldset>
@@ -101,6 +133,14 @@ class Details extends React.Component {
               <input type="radio" name="star4" id="rating" data-testid="4-rating" />
               <input type="radio" name="star5" id="rating" data-testid="5-rating" />
             </label>
+            <button
+              type="button"
+              onClick={ this.addToCart }
+              data-testid="product-detail-add-to-cart"
+            >
+              Adicionar ao Carrinho
+
+            </button>
           </form>
         </section>
       </section>
