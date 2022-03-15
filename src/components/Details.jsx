@@ -45,20 +45,6 @@ class Details extends React.Component {
     this.setState({ [name]: value });
   }
 
-  addToCart = () => {
-    const { quantity, productName } = this.state;
-    if (localStorage.length > 0) {
-      const previousCart = JSON.parse(localStorage.getItem('cart'));
-      localStorage.setItem(
-        'cart', JSON.stringify(
-          [...previousCart, { name: productName, quantity }],
-        ),
-      );
-      return;
-    }
-    localStorage.setItem('cart', JSON.stringify([{ name: productName, quantity }]));
-  }
-
   handleQuantity = ({ target }) => {
     const { quantity } = this.state;
     if (target.innerText === '-') {
@@ -135,7 +121,7 @@ class Details extends React.Component {
             </label>
             <button
               type="button"
-              onClick={ this.addToCart }
+              onClick={ () => api.addToCart(productName, quantity) }
               data-testid="product-detail-add-to-cart"
             >
               Adicionar ao Carrinho

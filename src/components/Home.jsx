@@ -55,6 +55,14 @@ class Home extends React.Component {
             <p><strong>{ product.title }</strong></p>
             <i>{ product.price }</i>
           </Link>
+          <button
+            type="button"
+            onClick={ () => api.addToCart(product.title) }
+            data-testid="product-add-to-cart"
+          >
+            Adicionar ao Carrinho
+
+          </button>
         </div>
       )),
       });
