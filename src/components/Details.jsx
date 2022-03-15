@@ -121,7 +121,7 @@ class Details extends React.Component {
             </label>
             <button
               type="button"
-              onClick={ () => api.addToCart(productName, quantity) }
+              onClick={ () => api.addToCart(productName, quantity, productPrice) }
               data-testid="product-detail-add-to-cart"
             >
               Adicionar ao Carrinho

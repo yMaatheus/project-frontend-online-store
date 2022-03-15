@@ -16,12 +16,13 @@ export async function getProductByProductId(productId) {
   return productByIdData;
 }
 
-export function addToCart(productName, quantity = 1) {
+export function addToCart(productName, quantity = 1, unitPrice) {
   if (localStorage.length > 0) {
     const previousCart = JSON.parse(localStorage.getItem('cart'));
     localStorage.setItem('cart',
-      JSON.stringify([...previousCart, { name: productName, quantity }]));
+      JSON.stringify([...previousCart, { name: productName, quantity, unitPrice }]));
     return;
   }
-  localStorage.setItem('cart', JSON.stringify([{ name: productName, quantity }]));
+  localStorage.setItem('cart',
+    JSON.stringify([{ name: productName, quantity, unitPrice }]));
 }

@@ -57,7 +57,7 @@ class Home extends React.Component {
           </Link>
           <button
             type="button"
-            onClick={ () => api.addToCart(product.title) }
+            onClick={ () => api.addToCart(product.title, 1, product.price) }
             data-testid="product-add-to-cart"
           >
             Adicionar ao Carrinho
