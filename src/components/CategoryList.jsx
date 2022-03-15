@@ -39,6 +39,7 @@ class CategoryList extends React.Component {
                   onClick={ onClick }
                   value={ category.id }
                   checked={ categorySelected === category.id }
+                  onChange={ ({ target }) => { target.checked = true; } }
                 />
                 { category.name }
               </label>
