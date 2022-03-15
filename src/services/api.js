@@ -19,11 +19,8 @@ export async function getProductByProductId(productId) {
 export function addToCart(productName, quantity = 1) {
   if (localStorage.length > 0) {
     const previousCart = JSON.parse(localStorage.getItem('cart'));
-    localStorage.setItem(
-      'cart', JSON.stringify(
-        [...previousCart, { name: productName, quantity }],
-      ),
-    );
+    localStorage.setItem('cart',
+      JSON.stringify([...previousCart, { name: productName, quantity }]));
     return;
   }
   localStorage.setItem('cart', JSON.stringify([{ name: productName, quantity }]));
