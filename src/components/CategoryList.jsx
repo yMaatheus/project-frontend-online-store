@@ -27,15 +27,12 @@ class CategoryList extends React.Component {
         <ul className="categories">
           {categoriesArray.map((category) => (
 
-            <div key={ Math.random() }>
-              <label htmlFor="category">
+            <div key={ Math.random() } className="category">
+              <label htmlFor={ category.id }>
                 <input
-                  label="aria-label"
                   type="radio"
                   data-testid="category"
-                  id="category"
-                  name="category"
-                  className="category"
+                  id={ category.id }
                   onClick={ onClick }
                   value={ category.id }
                   checked={ categorySelected === category.id }
@@ -43,7 +40,6 @@ class CategoryList extends React.Component {
                 />
                 { category.name }
               </label>
-              <hr />
             </div>
           ))}
         </ul>
