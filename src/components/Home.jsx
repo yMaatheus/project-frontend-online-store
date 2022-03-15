@@ -27,13 +27,11 @@ class Home extends React.Component {
   async onClick(event) {
     event.preventDefault();
     const { target: { value } } = event;
-    console.log(value);
     let category = value;
     if (category === '') {
       category = '$CATEGORY_ID';
     }
     const { inputValue } = this.state;
-    // const test = '$CATEGORY_ID'; // const test exite para testes por não haver categorias ainda.
     const { results } = await api.getProductsFromCategoryAndQuery(category, inputValue);
     this.setState({ products: results, categorySelected: category });
     this.displayProducts();
@@ -44,10 +42,19 @@ class Home extends React.Component {
     if (products.length > 0) {
       this.setState({ cards:
       products.map((product) => (
-        <div key={ product.id } data-testid="product">
-          <h3>{ product.title }</h3>
-          <img src={ product.thumbnail } alt={ product.title } />
-          <p>{ product.price }</p>
+        <div
+          className="product-card"
+          key={ product.id }
+          data-testid="product"
+        >
+          <Link
+            to={ `/details/${product.id}` }
+            data-testid="product-detail-link"
+          >
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p><strong>{ product.title }</strong></p>
+            <i>{ product.price }</i>
+          </Link>
         </div>
       )),
       });
@@ -61,11 +68,7 @@ class Home extends React.Component {
   render() {
     const { inputValue, cards, categorySelected } = this.state;
     return (
-      <div className="main">
-        <CategoryList
-          onClick={ this.onClick }
-          categorySelected={ categorySelected }
-        />
+      <>
         <header className="App-header">
           <input
             type="text"
@@ -73,7 +76,6 @@ class Home extends React.Component {
             value={ inputValue }
             onChange={ this.onInputChange }
           />
-          <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
           <button
             type="button"
             data-testid="query-button"
@@ -81,16 +83,41 @@ class Home extends React.Component {
           >
             Pesquisar
           </button>
-          <ul>
-            <span data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <span
+              role="img"
+              aria-label="cart"
+            >
+              🛒
             </span>
-          </ul>
-          <div>
-            {cards}
-          </div>
+          </Link>
         </header>
-      </div>
+        <div className="main">
+          <CategoryList
+            onClick={ this.onClick }
+            categorySelected={ categorySelected }
+          />
+          {
+            cards
+              ? (
+                <div className="product-cards-container">
+                  {cards}
+                </div>
+              )
+              : (
+
+                <span
+                  data-testid="home-initial-message"
+                  className="home-initial-message"
+                >
+                  Digite algum termo de pesquisa ou escolha uma categoria.
+                </span>
+
+              )
+          }
+
+        </div>
+      </>
     );
   }
 }
