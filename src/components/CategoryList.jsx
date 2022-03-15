@@ -13,9 +13,10 @@ class CategoryList extends React.Component {
 
   async componentDidMount() {
     api.getCategories()
-      .then((categories) => this.setState({
-        categoriesArray: categories,
-      }));
+      .then((categories) => {
+        categories.pop();
+        this.setState({ categoriesArray: categories });
+      });
   }
 
   render() {
