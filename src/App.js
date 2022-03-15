@@ -4,9 +4,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Details from './components/Details';
-import * as api from './services/api';
-
-api.getCategories().then((categories) => { console.log(categories); });
 
 class App extends React.Component {
   render() {

@@ -27,7 +27,6 @@ class Home extends React.Component {
   async onClick(event) {
     event.preventDefault();
     const { target: { value } } = event;
-    console.log(value);
     let category = value;
     if (category === '') {
       category = '$CATEGORY_ID';
