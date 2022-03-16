@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Cart extends React.Component {
   constructor(props) {
@@ -34,39 +35,50 @@ class Cart extends React.Component {
     const { products } = this.state;
     console.log(products);
     return (
-      products
-        ? (
-          products.map(({ name, quantity, unitPrice }, index) => (
-            <div key={ Math.random() }>
-              <h3 data-testid="shopping-cart-product-name">{name}</h3>
-              <span>Quantidade:</span>
-              <button
-                id={ index }
-                data-testid="product-decrease-quantity"
-                type="button"
-                onClick={ (event) => this.handleQuantity(event, '-') }
-              >
-                -
+      <div>
+        {products
+          ? (
+            products.map((
+              { name, quantity, unitPrice },
+              index,
+            ) => (
+              <div key={ Math.random() }>
+                <h3 data-testid="shopping-cart-product-name">{name}</h3>
+                <span>Quantidade:</span>
+                <button
+                  id={ index }
+                  data-testid="product-decrease-quantity"
+                  type="button"
+                  onClick={ (event) => this.handleQuantity(event, '-') }
+                >
+                  -
 
-              </button>
-              <span data-testid="shopping-cart-product-quantity">{quantity}</span>
-              <button
-                id={ index }
-                data-testid="product-increase-quantity"
-                type="button"
-                onClick={ (event) => this.handleQuantity(event, '+') }
-              >
-                +
+                </button>
+                <span data-testid="shopping-cart-product-quantity">{quantity}</span>
+                <button
+                  id={ index }
+                  data-testid="product-increase-quantity"
+                  type="button"
+                  onClick={ (event) => this.handleQuantity(event, '+') }
+                >
+                  +
 
-              </button>
-              <br />
-              <span>{`Price: ${(unitPrice * quantity).toFixed(2)}`}</span>
-            </div>
-          ))
-        )
-        : (
-          <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
-        )
+                </button>
+                <br />
+                <span>{`Price: ${(unitPrice * quantity).toFixed(2)}`}</span>
+              </div>
+            ))
+          )
+          : (
+            <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
+          )}
+        {products
+          && (
+            <Link to="/checkout" data-testid="checkout-products">
+              <button type="button">Finalizar compra</button>
+            </Link>
+          )}
+      </div>
     );
   }
 }
