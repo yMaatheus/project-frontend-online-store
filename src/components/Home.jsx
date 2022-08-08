@@ -14,6 +14,7 @@ class Home extends React.Component {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.addToCart = this.addToCart.bind(this);
     this.displayProducts = this.displayProducts.bind(this);
   }
 
@@ -37,6 +38,11 @@ class Home extends React.Component {
     this.displayProducts();
   }
 
+  addToCart(title, quantity, price, availableQuantity) {
+    api.addToCart(title, quantity, price, availableQuantity);
+    this.forceUpdate();
+  }
+
   displayProducts() {
     const { products } = this.state;
     if (products.length > 0) {
@@ -55,9 +61,15 @@ class Home extends React.Component {
             <p><strong>{ product.title }</strong></p>
             <i>{ product.price }</i>
           </Link>
+          { product.shipping.free_shipping
+            && <p data-testid="free-shipping">Frete Gratis</p> }
           <button
             type="button"
-            onClick={ () => api.addToCart(product.title, 1, product.price) }
+            onClick={
+              () => (this.addToCart(
+                product.title, 1, product.price, product.available_quantity,
+              ))
+            }
             data-testid="product-add-to-cart"
           >
             Adicionar ao Carrinho
@@ -97,6 +109,10 @@ class Home extends React.Component {
               aria-label="cart"
             >
               🛒
+              <span data-testid="shopping-cart-size">
+                {localStorage.getItem('cart')
+                  ? JSON.parse(localStorage.getItem('cart')).length : 0}
+              </span>
             </span>
           </Link>
         </header>

@@ -17,7 +17,7 @@ class Cart extends React.Component {
 
   handleQuantity = ({ target: { id } }, operator) => {
     const { products } = this.state;
-    const { quantity } = products[id];
+    const { quantity, availableQuantity } = products[id];
     if (operator === '-') {
       if (quantity > 2) {
         products[id].quantity -= 1;
@@ -25,6 +25,7 @@ class Cart extends React.Component {
         products[id].quantity = 1;
       }
     } else {
+      if (availableQuantity && quantity >= +availableQuantity) return;
       products[id].quantity += 1;
     }
     localStorage.setItem('cart', JSON.stringify(products));

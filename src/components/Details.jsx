@@ -67,7 +67,18 @@ class Details extends React.Component {
 
     return (
       <section>
-        <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <span
+            role="img"
+            aria-label="cart"
+          >
+            🛒
+            <span data-testid="shopping-cart-size">
+              {localStorage.getItem('cart')
+                ? JSON.parse(localStorage.getItem('cart')).length : 0}
+            </span>
+          </span>
+        </Link>
         <h1 data-testid="product-detail-name">
           {`${productName} - R$ ${productPrice.toFixed(2)}`}
         </h1>
